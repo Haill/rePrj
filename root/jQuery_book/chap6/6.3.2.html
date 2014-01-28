@@ -1,0 +1,73 @@
+<html>
+<head>
+<title>$.ajaxSetup()方法全局设置Ajax</title>
+<script type="text/javascript" src="http://localhost:8080/rp/js/jquery/jquery-1.7.2.js"></script>
+<style type="text/css">
+	body{font-size:13px}
+	.divFrame{width:260px;border:solid 1px #666}
+	.divFrame .divTitle{padding:5px;background-color:#eee}
+	.divFrame .divContent{padding:8px}
+	.divFrame .divContent .clsShow{font-size:14px}
+	.btn{border:#666 1px solid;padding:2px;width:80px;
+		/**filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#ffffff,EndColorStr=#ECE9D8);*/ 
+	}
+</style>
+<script type="text/javascript">
+	$(function(){
+		$.ajaxSetup({	// 设置全局性的Ajax选项
+			type:"GET",
+			url:"http://localhost:8080/rp/jQuery_book/chap6/UserInfo.xml",
+			dataType:"xml"
+		})
+		$("#Button1").click(function(){	// "姓名"按钮的单击事件
+			$.ajax({
+				success:function(data){	// 传回请求响应的数据
+					ShowData(data,"姓名","name");	// 显示“姓名”部分
+				}
+			})
+		})
+		$("#Button2").click(function(){	// "性别" 按钮的单击事件
+			$.ajax({
+				success:function(data){	// 传回请求响应的单击事件
+					ShowData(data,"性别","sex");	// 显示"性别" 部分
+				}
+			})
+		})
+		$("#Button3").click(function(){	//  “邮箱”按钮的单击事件
+			$.ajax({
+				success:function(data){ // 显示“邮箱” 部分
+					ShowData(data,"邮箱","email");	// 显示“邮箱”部分
+				}
+			})
+		})
+		/**
+		 * 根据名称与值，获取请求响应数据中的某部分
+		 * @param {Object} d	为请求响应后的数据
+		 * @param {Object} n	为数据中文说明字符
+		 * @param {Object} v	为数据在响应数据中的元素名称
+		 */
+		function ShowData(d, n, v){
+			$("divTip").empty();		// 先清空标记中的内容
+			var strHTML = "";		// 初始化保存内容变量
+			$(d).find("User").each(function(){  // 遍历获取的数据
+				var $strUser = $(this);
+				strHTML += n + ":" + $strUser.find(v).text() + "<hr>";
+			})
+			$("#divTip").html(strHTML);		// 显示处理后的数据
+		}
+	})
+</script>
+</head>
+<body>
+	<div class="divFrame">
+		<div class="divTitle">
+			<span><input id="Button1" type="button" value="姓名" class="btn"></span>
+			<span><input id="Button2" type="button" value="性别" class="btn"></span>
+			<span><input id="Button3" type="button" value="邮箱" class="btn"></span>			
+		</div>
+		<div class="divContent">
+			<div id="divTip" class="clsShow"></div>
+		</div>		
+	</div>
+</body>
+</html>

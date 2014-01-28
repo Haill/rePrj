@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>Ajax中的全局事件</title>
+<script type="text/javascript" src="http://localhost:8080/rp/js/jquery/jquery-1.7.2.js"></script>
+<style type="text/css">
+	body{font-size:13px}
+	.divFrame{width:260px;border:solid 1px #666}
+	.divFrame .divTitle{padding:5px;background-color:#eee}
+	.divFrame .divContent{padding:8px}
+	.divFrame .divContent .clsShow{font-size:14px}
+	.btn{border:#666 1px solid;padding:2px;width:80px;
+		/**filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#ffffff,EndColorStr=#ECE9D8);*/
+	}
+	.clsTip{display:none}
+</style>
+<script type="text/javascript">
+	$(function(){
+		// 元素绑定全局ajaxStart事件
+		$("#divMsg").ajaxStart(function(){
+			$(this).show();		// 显示元素
+		})
+		// 元素绑定全局ajaxStop事件
+		$("#divMsg").ajaxStop(function(){
+			$(this).html("已成功获取数据。");
+			alert("yes");
+			$(this).hide();
+		})
+		// 按钮的单击事件
+		$("#Button1").click(function(){
+			$.ajax({   // 带参数请求服务器
+				type:"GET",
+				url:"http://localhost:8080/rp/jQuery_book/chap6/6.4.1.GetData.jsp",
+				// 获取加码后的数据并作为参数传递给服务器
+				data:{txtData:encodeURI($("#txtData").val())},
+				dataType:"html",
+				success:function(data){    // 显示解码后的返回数据
+					$("#divTip").html(decodeURI(data));
+				}
+			})
+		})
+	})
+</script>
+</head>
+<body>
+	<div class="divFrame">
+		<div class="divTitle">
+			<span>数据：<input id="txtData" type="text" class="txt"></span>
+			<span><input id="Button1" type="button" value="发送" class="btn"></span>
+		</div>
+		<div class="divContent">
+			<div id="divMsg" class="clsTip">正在发送数据请求。。。</div>
+			<div id="divTip" class="clsShow"></div>
+		</div>		
+	</div>
+</body>
+</html>

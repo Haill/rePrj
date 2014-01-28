@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>$.ajax()方法发送请求</title>
+<script type="text/javascript" src="http://localhost:8080/rp/js/jquery/jquery-1.7.2.js"></script>
+<style type="text/css">
+	body{font-size:13px}
+	.divFrame{width:260px;border:solid 1px #666}
+	.divFrame .divTitle{padding:5px;background-color:#eee}
+	.divFrame .divContent{padding:8px}
+	.divFrame .divContent .clsShow{font-size:14px}
+	.btn{border:#666 1px solid;padding:2px;width:80px;
+		/**filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#ffffff,EndColorStr=#ECE9D8);*/ 
+	}
+</style>
+<script type="text/javascript">
+	$(function(){
+		$.ajax({	// 请求登录页
+			url:"http://localhost:8080/rp/jQuery_book/chap6/6.3.1.Login.html",		// 登录静态页
+			dataType:"html",
+			success:function(HTML){	// 返回页面内容
+				// 将页面内容置入表单
+				$("#frmUserLogin").html(HTML);
+				// "登录"按钮单击事件
+				$("#btnLogin").click(function(){
+					//  获取用户名称
+					var strTxtName = encodeURI($("#txtName").val());
+					// 获取输入密码
+					var strTxtPass = encodeURI($("#txtPass").val());
+					
+					// 开始发送数据
+					$.ajax({	// 请求登录处理页
+						url:"http://localhost:8080/rp/jQuery_book/chap6/6.3.1.Login.jsp",	// 登录处理页
+						dataType:"json",
+						// 传递请求数据
+						data:{txtName:strTxtName,txtPass:strTxtPass},
+						// 登录成功后返回的数据
+						success:function(strValue){
+							// 根据返回值进行状态显示
+							if(strValue.succ == 'succ'){
+								alert(1);
+								$(".clsShow").html("操作提示，登录成功！");
+							}else{
+								alert(2);
+								$("#divError").html("用户名或密码错误！");
+								//$(".clsShow").html("操作提示，登录成功！");
+							}
+						}
+					});
+				})
+			}
+		})
+	})
+</script>
+</head>
+<body>
+	<form id="frmUserLogin"></form>
+</body>
+</html>

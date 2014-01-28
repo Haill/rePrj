@@ -1,0 +1,42 @@
+body{font-size:13px}
+a{text-decoration:none}
+
+/*外框样式*/
+.divFrame .divTitle{
+	padding:5px;
+	background-color:#eee
+}
+.divFrame .divTitle span{
+	padding:2px;
+	padding-top:5px;
+	font-family:黑体;
+	font-size:14px;
+}
+/*外框中内容样式*/
+.divFrame .divContent{
+	padding:8px;
+}
+.divFrame .divContent .clsShow .ShowBottom{
+	text-align:right;
+	font-size:12px;
+	color:#555;
+}
+/*外框中提交点评内容样式*/
+.divFrame .divSubmit{padding:20px}
+.divFrame .divSubmit .SubContent .SubBtn{
+	padding-top:10px;
+	padding-bottom:12px;
+	font-size:12px;
+	color:#555;
+	font-weight:bold
+}
+/*侦察请求状态样式*/
+.clsTip{
+	position:absolute;
+	width:160px;
+	text-align:center;
+	font-size:13px;
+	border:solid 1px #cc3300;
+	margin-bottom:5px;
+	background-color:#ffe0a3
+}
